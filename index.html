@@ -29,11 +29,13 @@
           authority:
             "https://login.microsoftonline.com/846807e1-c939-4d39-b759-2992852937f4",
           clientId: "8ae30598-9693-43e5-a8fb-05ea677b3253",
+          clientCapabilities: ["CP1"],
         },
       });
       (async () => {
         await window.msalInstance.handleRedirectPromise();
         window.msalInstance.loginRedirect({
+          scopes: ['https://graph.microsoft.com/User.Read'],
           redirectUri:
             window.location.protocol + "//" + window.location.host + "/end",
           onRedirectNavigate: (navigateUrl) => {
