@@ -7,11 +7,24 @@
 </head>
 <body>
     <h1>End</h1>
+    <p id="windowinfo"></p>
+    <p id="secret"></p>
     <script>
         console.log("typeof window opener:", typeof window.opener);
         console.log("window opener:", window.opener);
+        if (!window.opener) {
+            document.querySelector("#windowinfo").innerText = `window.opener is ${window.opener === null ? "null" : typeof window.opener}`;
+        } else {
+            try {
+                console.log(window.opener.document);
+                document.querySelector("#windowinfo").innerText = `window.opener is full [same-origin]`;
+            } catch (e) {
+                document.querySelector("#windowinfo").innerText = `window.opener is restricted [cross-origin]`;
+            }
+        }
         let hash =  window.location.hash;
         console.log("hash:", hash);
+        document.querySelector("#secret").innerText = `hash is: ${hash}`;
         if (hash) {
             window.opener.popupHash = hash;
         }
