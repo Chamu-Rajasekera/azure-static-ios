@@ -25,6 +25,7 @@
         const bc = new BroadcastChannel("auth");
         bc.postMessage({ type: "auth_hash", hash: window.location.hash });
         bc.close();
+        window.name = JSON.stringify({ hash: window.location.hash });
       } else {
         try {
           let openerDoc = window.opener.document;

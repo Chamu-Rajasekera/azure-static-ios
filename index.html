@@ -21,7 +21,7 @@
     <br />
     <button
       type="button"
-      onclick="window.open('/start', '_blank', 'popup,width=600,height=400')"
+      onclick="window.popupHandler = window.open('/start', '_blank', 'popup,width=600,height=400')"
     >
       Sign-in
     </button>
@@ -37,7 +37,7 @@
           console.log("got hash from broadcast channel:", e.data.hash);
           document.querySelector(
               "#hash"
-            ).innerText = `hash received (from BC): ${e.data.hash}`;
+            ).innerText = `hash received (from BroadcastChannel): ${e.data.hash}`;
           bc.close();
         }
       }
@@ -67,7 +67,19 @@
           if (window.popupHash) {
             document.querySelector(
               "#hash"
-            ).innerText = `hash received: ${window.popupHash}`;
+            ).innerText = `hash received (from window.popupHash): ${window.popupHash}`;
+          }
+          if (window.popupHandler.name) {
+            let nameObj = {};
+            try {
+              nameObj = JSON.parse(window.popupHandler.name);
+            } catch (e) {
+            }
+            if (nameObj.hash) {
+              document.querySelector(
+                "#hash"
+              ).innerText = `hash received (from popup.name): ${nameObj.hash}`;
+            }
           }
         }, 250);
       })();
