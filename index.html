@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1>Welcome</h1>
+    <p id="info"></p>
     <button
       onclick="window.open('/start', '_blank', 'popup,width=600,height=400')"
     >
@@ -25,6 +26,8 @@
       // url.searchParams.set('client_id', '8ae30598-9693-43e5-a8fb-05ea677b3253');
       window.msalInstance = new Msal.UserAgentApplication({
         auth: {
+          authority:
+            "https://login.microsoftonline.com/846807e1-c939-4d39-b759-2992852937f4",
           clientId: "8ae30598-9693-43e5-a8fb-05ea677b3253",
         },
       });
@@ -33,6 +36,9 @@
           window.location.protocol + "//" + window.location.host + "/end",
         onRedirectNavigate: (navigateUrl) => {
           window.navigationUrl = navigateUrl;
+          document.querySelector(
+            "#info"
+          ).innerText = `redirect URL is:${navigateUrl}`;
           return false;
         },
       });
