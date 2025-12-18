@@ -4,10 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <style>
+      #hash {
+        color: green;
+      }
+    </style>
   </head>
   <body>
     <h1>Welcome</h1>
     <p id="info"></p>
+    <p id="hash"></p>
     <button
       onclick="window.open('/start', '_blank', 'popup,width=600,height=400')"
     >
@@ -15,10 +21,10 @@
     </button>
     <script
       type="text/javascript"
-      src="https://alcdn.msauth.net/lib/1.4.17/js/msal.min.js"
+      src="https://alcdn.msauth.net/browser/2.18.0/js/msal-browser.min.js"
     ></script>
     <script>
-      window.msalInstance = new Msal.UserAgentApplication({
+      window.msalInstance = new msal.PublicClientApplication({
         auth: {
           authority:
             "https://login.microsoftonline.com/846807e1-c939-4d39-b759-2992852937f4",
@@ -36,6 +42,13 @@
           return false;
         },
       });
+      setInterval(() => {
+        if (window.popupHash) {
+          document.querySelector(
+            "#hash"
+          ).innerText = `hash received: ${window.popupHash}`;
+        }
+      }, 250);
     </script>
   </body>
 </html>
