@@ -1,0 +1,23 @@
+{
+  "routes": [
+    {
+      "route": "/secure",
+      "rewrite": "/secure.html",
+      "headers": {
+        "Cross-Origin-Opener-Policy": "noopener-allow-popups"
+      }
+    },
+    {
+      "route": "/secure-redirect",
+      "redirect": "/end#code=somesecret",
+      "statusCode": 302,
+      "headers": {
+        "Cross-Origin-Opener-Policy": "noopener-allow-popups"
+      }
+    },
+    { "route": "/normal", "rewrite": "/normal.html" },
+    { "route": "/start",  "rewrite": "/start.html" },
+    { "route": "/end",    "rewrite": "/end.html" },
+    { "route": "/",       "rewrite": "/index.html" }
+  ]
+}

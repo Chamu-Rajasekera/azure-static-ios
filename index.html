@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+  <button onclick="window.open('/start', '_blank', 'popup,width=600,height=400')">Sign-in</button>
+  <script>
+    let redirect_uri = window.location.protocol + '//' + window.location.host + '/end';
+    window.navigationUrl = "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/v2.0/authorize?client_id=3e62f81e-590b-425b-9531-cad6683656cf&scope=394866fc-eedb-4f01-8536-3ff84b16be2a%2F.default%20openid%20profile%20offline_access&redirect_uri="+encodeURIComponent(redirect_uri)+"&client-request-id=72b82b57-65bf-4b1d-b233-4d627889b328&response_mode=fragment&response_type=code&x-client-SKU=msal.js.browser&x-client-VER=2.18.0&x-client-OS=&x-client-CPU=&client_info=1&code_challenge=WRR71OK8l-7-YeNz0b1No5K5UAzVKQhocPjiH7KFRCA&code_challenge_method=S256&nonce=9e64944d-8bda-412d-9ab0-6a07c38ae7e8&state=eyJpZCI6IjUyZjQxMGQ5LTk0ZGEtNDc3OS05MzFmLTI2YTg0ZmEyNDQ2YiIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D&claims=%7B%22access_token%22%3A%7B%22xms_cc%22%3A%7B%22values%22%3A%5B%22CP1%22%5D%7D%7D%7D";
+    window.navigationUrl = "/secure-redirect";
+  </script>
+</body>
+</html>
