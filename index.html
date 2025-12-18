@@ -14,16 +14,33 @@
     <h1>Welcome</h1>
     <p id="info"></p>
     <p id="hash"></p>
+    <label>
+      <input type="checkbox" id="fakeRedirectCheckbox" onchange="window.fakeRedirect = this.checked" />
+      Redirect to /secure-redirect instead
+    </label>
+    <br />
     <button
+      type="button"
       onclick="window.open('/start', '_blank', 'popup,width=600,height=400')"
     >
       Sign-in
     </button>
+    
     <script
       type="text/javascript"
       src="https://alcdn.msauth.net/browser/2.18.0/js/msal-browser.min.js"
     ></script>
     <script>
+      const bc = new BroadcastChannel("auth");
+      bc.onmessage = (e) => {
+        if (e.data?.type === "auth_hash") {
+          console.log("got hash from broadcast channel:", e.data.hash);
+          document.querySelector(
+              "#hash"
+            ).innerText = `hash received (from BC): ${e.data.hash}`;
+          bc.close();
+        }
+      }
       window.msalInstance = new msal.PublicClientApplication({
         auth: {
           authority:
@@ -35,7 +52,7 @@
       (async () => {
         await window.msalInstance.handleRedirectPromise();
         window.msalInstance.loginRedirect({
-          scopes: ['https://graph.microsoft.com/User.Read'],
+          scopes: ["https://graph.microsoft.com/User.Read"],
           redirectUri:
             window.location.protocol + "//" + window.location.host + "/end",
           onRedirectNavigate: (navigateUrl) => {

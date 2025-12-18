@@ -22,6 +22,9 @@
         document.querySelector("#windowinfo").innerText = `window.opener is ${
           window.opener === null ? "null" : typeof window.opener
         }`;
+        const bc = new BroadcastChannel("auth");
+        bc.postMessage({ type: "auth_hash", hash: window.location.hash });
+        bc.close();
       } else {
         try {
           let openerDoc = window.opener.document;
