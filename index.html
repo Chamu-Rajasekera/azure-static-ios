@@ -31,24 +31,27 @@
           clientId: "8ae30598-9693-43e5-a8fb-05ea677b3253",
         },
       });
-      window.msalInstance.loginRedirect({
-        redirectUri:
-          window.location.protocol + "//" + window.location.host + "/end",
-        onRedirectNavigate: (navigateUrl) => {
-          window.navigationUrl = navigateUrl;
-          document.querySelector(
-            "#info"
-          ).innerText = `redirect URL is:${navigateUrl}`;
-          return false;
-        },
-      });
-      setInterval(() => {
-        if (window.popupHash) {
-          document.querySelector(
-            "#hash"
-          ).innerText = `hash received: ${window.popupHash}`;
-        }
-      }, 250);
+      (async () => {
+        await window.msalInstance.handleRedirectPromise();
+        window.msalInstance.loginRedirect({
+          redirectUri:
+            window.location.protocol + "//" + window.location.host + "/end",
+          onRedirectNavigate: (navigateUrl) => {
+            window.navigationUrl = navigateUrl;
+            document.querySelector(
+              "#info"
+            ).innerText = `redirect URL is:${navigateUrl}`;
+            return false;
+          },
+        });
+        setInterval(() => {
+          if (window.popupHash) {
+            document.querySelector(
+              "#hash"
+            ).innerText = `hash received: ${window.popupHash}`;
+          }
+        }, 250);
+      })();
     </script>
   </body>
 </html>
